@@ -18,7 +18,7 @@ export default function UpdatePage() {
     }
     const updatePayableItem = () => {
         taxService.updatePayableItem(id, updatedItemName, updatedAmount);
-        navigate("/tax")
+        navigate("/")
     }
     return (
         <>

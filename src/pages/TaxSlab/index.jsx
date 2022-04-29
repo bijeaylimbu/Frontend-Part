@@ -38,17 +38,17 @@ export default function TaxSlabPage() {
             const taxSlabAt5 = 1000 * (5 / 100);
             remainingAmount -= 1000;
             totalNetPaybleAmount += taxSlabAt5;
-            if (remainingAmount >= 0 && (remainingAmount - 4000) >= 0) {
+            if (remainingAmount >= 0 && (remainingAmount - 4000) > 0) {
                 const taxSlabAt15 = 3000 * (15 / 100);
                 remainingAmount -= 3000;
                 totalNetPaybleAmount += taxSlabAt15;
-                if (remainingAmount >= 0) {
+                if (remainingAmount > 0) {
                     const taxSlabAt30 = remainingAmount * (30 / 100);
                     remainingAmount -= taxSlabAt30;
                     totalNetPaybleAmount += taxSlabAt30;
                 }
             }
-            else if (remainingAmount >= 0 && (4000 - remainingAmount) >= 0) {
+            else if (remainingAmount >= 0 && (4000 - remainingAmount) > 0) {
                 const taxSlabAt15 = (4000 - remainingAmount) * (15 / 100);
                 remainingAmount -= remainingAmount;
                 totalNetPaybleAmount += taxSlabAt15;
@@ -83,7 +83,7 @@ export default function TaxSlabPage() {
                             <TableCell align="right" >
                                 <Link
                                     to="/tax"
-                                    state={{ id: personId }}
+                                    state={{ id: personId, personName: personName }}
                                     style={{ textDecoration: 'none' }}
                                 >Edit</Link>
                             </TableCell>
