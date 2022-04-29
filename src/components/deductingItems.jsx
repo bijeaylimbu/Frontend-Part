@@ -7,17 +7,22 @@ import { Grid } from "@material-ui/core";
 import { useEffect, useState } from 'react';
 import taxService from '../services/tax.service';
 import { Link, useLocation } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 export default function DeductingItems() {
     const location = useLocation();
     const [deductingItem, setDeductingItem] = useState([]);
     const personId = location.state?.id;
     useEffect(() => {
         taxService.getAllDeductingItem(personId).then(res => setDeductingItem(res.data));
-    }, [])
+    }, [personId])
+    const deleteReductingItemById= async(id)=>{
+        taxService.deleteReductingItem(id);
+        window.location.reload();
+    }
     return (
         <>
             <Grid item xs={5}>
+            <Box component="div" sx={{ display: 'inline', marginLeft:'30px', paddingTop:'150px' }}>Deducting Items</Box>
                 <Table sx={{ maxWidth: 350 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -37,8 +42,9 @@ export default function DeductingItems() {
                                         <Link
                                             to="/update"
                                             state={{ id: data.id, itemName: data.item_name, amount: data.amount, type:"deducting" }}
+                                            style={{ textDecoration: 'none' }}
                                         >Edit</Link>
-                                        <Button> Delete</Button>
+                                        <Button onClick={()=>deleteReductingItemById(data.id)}> Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             )

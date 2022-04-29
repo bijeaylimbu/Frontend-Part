@@ -14,7 +14,7 @@ export default function UpdatePage() {
     const type = location.state.type;
     const updateDeductingItem = () => {
         taxService.updateDeductingItem(id, updatedItemName, updatedAmount);
-        navigate("/tax");
+        navigate("/");
     }
     const updatePayableItem = () => {
         taxService.updatePayableItem(id, updatedItemName, updatedAmount);

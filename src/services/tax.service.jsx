@@ -38,6 +38,12 @@ class taxService {
             amount
         });
     }
+    deletePayableItem(id){
+        return axiosInstance.delete(`/deletePayableItemById/${id}`);
+    }
+    deleteReductingItem(id){
+        return axiosInstance.delete(`/deleteDeductingItemById/${id}`);
+    }
 }
 
 export default new taxService();

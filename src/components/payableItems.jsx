@@ -7,18 +7,22 @@ import { Grid } from "@material-ui/core";
 import { useEffect, useState } from 'react';
 import taxService from '../services/tax.service';
 import { Link, useLocation } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 export default function PayableItems() {
     const location = useLocation();
     const [payableitem, setPayableItem] = useState([]);
     const personId = location.state?.id;
     useEffect(() => {
         taxService.getAllPayableItem(personId).then(res => setPayableItem(res.data));
-    }, [])
-
+    }, [personId])
+  const deletePayableById= async(id)=>{
+      taxService.deletePayableItem(id);
+      window.location.reload();
+  }
     return (
         <>
             <Grid item xs={5}>
+            <Box component="div" sx={{ display: 'inline', marginLeft:'30px', paddingTop:'150px' }}>Payable Items</Box>
                 <Table sx={{ maxWidth: 350 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -39,8 +43,9 @@ export default function PayableItems() {
                                         <Link
                                             to="/update"
                                             state={{ id: data.id, itemName: data.item_name, amount: data.amount , type: "payable"}}
+                                            style={{ textDecoration: 'none' }}
                                         >Edit</Link>
-                                        <Button> Delete</Button>
+                                        <Button onClick={()=>deletePayableById(data.id)}> Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             )
